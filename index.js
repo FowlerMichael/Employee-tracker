@@ -84,39 +84,37 @@ function allDepartments() {
     
     function allRoles() {
         connection.query('SELECT * FROM role', function(err, res) {
-            console.table(res);
-         
-            
-            start();
-        });
-    }
+                console.table(res);
+                 start();
+            });
+        }
     
     function allEmployees() {
         connection.query('SELECT * FROM employee', function(err, res) {
-            console.table(res);
-           
-            
-            start();
-        });
-    }
+                console.table(res);
+                start();
+            });
+        }
     
     function addDepartment() {
         inquirer.prompt([
             {
-                type: 'input',
-                name: 'department',
-                message: 'What is the name of the department?'
-            }
-        ]).then(function(answers) {
-            connection.query('INSERT INTO department SET ?', {
-                name: answers.department
-            }, function(err, res) {
+              type: 'input',
+              name: 'department_name',
+              message: 'What is the name of the department?',
+            },
+          ])
+          .then(function (answers) {
+            connection.query(
+              'INSERT INTO department (department_name) VALUES (?)',
+              [answers.department_name],
+              function (err, res) {
                 console.log('Department added');
                 start();
-            });
-        });
+              });
+          });     
     }
-    
+
     function addRole() {
         inquirer.prompt([
             {
